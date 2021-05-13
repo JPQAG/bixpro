@@ -80,7 +80,7 @@ const Landing = () => {
                                 <div className="hero-content app-hero-content text-center">
                                     <div className="row justify-content-md-center">
                                         <div className="col-md-10">
-                                            <h1 className="wow fadeInUp" data-wow-delay="0s">Datta Able React Admin Template</h1>
+                                            <h1 className="wow fadeInUp" data-wow-delay="0s">CryptX React Admin Template</h1>
                                             <p className="wow fadeInUp" data-wow-delay="0.2s">
                                                 First ever React admin template with Flat UI Interface. <br className="hidden-xs" /> Its best choice for your any complex project.
                                             </p>
@@ -103,7 +103,7 @@ const Landing = () => {
                                         <div className="services-content">
                                             <h1 className="wow fadeInUp" data-wow-delay="0s">We take care our products for more feature rich</h1>
                                             <p className="wow fadeInUp" data-wow-delay="0.2s">
-                                                Datta Able is one of the finest Admin dashboard template in its category. Premium admin dashboard with high end feature rich possibilities.
+                                                CryptX is one of the finest Admin dashboard template in its category. Premium admin dashboard with high end feature rich possibilities.
                                             </p>
                                         </div>
                                     </div>
@@ -117,7 +117,7 @@ const Landing = () => {
                                                     <div className="services-description">
                                                         <h1>Mega feature rich</h1>
                                                         <p>
-                                                            Datta Able is one of unique dashboard template which come with tons of ready to use feature. We continuous working on it to provide latest updates in digital market.
+                                                            CryptX is one of unique dashboard template which come with tons of ready to use feature. We continuous working on it to provide latest updates in digital market.
                                                         </p>
                                                     </div>
                                                 </div>
@@ -128,7 +128,7 @@ const Landing = () => {
                                                     <div className="services-description">
                                                         <h1>Fast and Robust</h1>
                                                         <p>
-                                                            We are contantly working on Datta Able and improve its performance too. Your definitely give higher rating to Datta Able for its performance.
+                                                            We are contantly working on CryptX and improve its performance too. Your definitely give higher rating to CryptX for its performance.
                                                         </p>
                                                     </div>
                                                 </div>
@@ -139,7 +139,7 @@ const Landing = () => {
                                                     <div className="services-description">
                                                         <h1>FLAT UI-Interface</h1>
                                                         <p>
-                                                            Datta Able is first ever admin dashboard template which release in Bootstrap 4 framework. Intuitive feature rich design concept and color combination.
+                                                            CryptX is first ever admin dashboard template which release in Bootstrap 4 framework. Intuitive feature rich design concept and color combination.
                                                         </p>
                                                     </div>
                                                 </div>
@@ -161,7 +161,7 @@ const Landing = () => {
                                         <div className="right-content">
                                             <h2>High performance and flexible code</h2>
                                             <p>
-                                                Datta Able is full flexible solution for your entire project development. You can easily maintain all of its module/components.
+                                                CryptX is full flexible solution for your entire project development. You can easily maintain all of its module/components.
                                             </p>
                                             <ul>
                                                 <li><i className="feather icon-check-square"/>Neat n clean code structure.</li>
@@ -356,7 +356,7 @@ const Landing = () => {
                                 <div className="left-content wow fadeInLeft" data-wow-delay="0s">
                                     <h2 className="wow fadeInLeft" data-wow-delay="0.1s">We are available for custom work development</h2>
                                     <p className="wow fadeInLeft" data-wow-delay="0.2s">
-                                        We at Datta Able available for custom work development with High end specialized developer.
+                                        We at CryptX available for custom work development with High end specialized developer.
                                     </p>
                                     <button className="btn btn-primary btn-action btn-fill wow fadeInLeft" data-wow-delay="0.2s">Click to send query</button>
                                 </div>

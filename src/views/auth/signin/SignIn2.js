@@ -12,7 +12,7 @@ const Signin2 = () => {
                 <div className="row align-items-center w-100 align-items-stretch bg-white">
                     <div className="d-none d-lg-flex col-lg-8 aut-bg-img align-items-center d-flex justify-content-center" style={{backgroundImage: `url(${back4})`, backgroundSize: 'cover', backgroundAttachment: 'fixed', backgroundPosition: 'center'}}>
                         <div className="col-md-8">
-                            <h1 className="text-white mb-5">Login in Datta Able</h1>
+                            <h1 className="text-white mb-5">Login in CryptX</h1>
                             <p className="text-white">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever.</p>
                         </div>
                     </div>
