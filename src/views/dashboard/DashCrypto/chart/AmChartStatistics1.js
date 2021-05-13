@@ -103,7 +103,6 @@ const AmChartStatistics1 = props => {
             },
         });
     });
-
     return <div id='line-area2' className="lineAreaDashboard" style={{width: '100%', height: props.height}} />;
 }
 
