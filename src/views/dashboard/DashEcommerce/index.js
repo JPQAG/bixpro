@@ -45,7 +45,7 @@ const DashEcommerce = () => {
         return() => clearInterval(
             interval
             )
-        }//, []
+        }, []
     );
 
     const handleChange = e => {
