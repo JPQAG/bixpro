@@ -31,18 +31,6 @@ const menuItems = {
                                 url: 'CRM'
                             },
                             {
-                                id: 'markets',
-                                title: 'Markets',
-                                type: 'item',
-                                url: 'Analytics'
-                            },
-                            {
-                                id: 'securities',
-                                title: 'Securities',
-                                type: 'item',
-                                url: 'Default'
-                            },
-                            {
                                 id: 'valuation',
                                 title: 'Valuation',
                                 type: 'item',

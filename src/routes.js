@@ -175,6 +175,11 @@ const routes = [
         path: '/app/dashboard/default',
         component: lazy(() => import('./views/dashboard/DashDefault'))
       },
+      // {
+      //   exact: true,
+      //   path: '/app/dashboard/summary',
+      //   component: lazy(() => import('./views/cryptX/MacroView/Dashboard/Summary'))
+      // },
       {
         exact: true,
         path: '/app/dashboard/e-commerce',

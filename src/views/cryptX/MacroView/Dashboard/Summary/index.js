@@ -25,7 +25,7 @@ const dataMarketsView = [
     { a: 15 }
   ];
 
-const DashCrypto = () => {
+const DashSummary = () => {
     const [data, setData] = useState([]);
     const [latestDate, setLatestDate] = useState(new Date('11 Feb 2017 GMT').getTime());
 
@@ -294,4 +294,4 @@ const DashCrypto = () => {
     );
 }
 
-export default DashCrypto;
+export default DashSummary;
