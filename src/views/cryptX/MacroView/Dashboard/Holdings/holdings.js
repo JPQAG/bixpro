@@ -4,71 +4,7 @@ import { Link } from 'react-router-dom';
 
 import axios from 'axios';
 
-import { CONFIG } from '../../../config/constant.js'
-
-const secretKey = CONFIG.binance.secretKey;
-const apiKey = CONFIG.binance.apiKey;
-const Binance = require('node-binance-api');
-const binance = new Binance().options({
-    APIKEY: apiKey,
-    APISECRET: secretKey
-});
-
-binance.options({
-    APIKEY: CONFIG.binance.secretKey,
-    APISECRET: CONFIG.binance.apiKey,
-    useServerTime: true,
-    recvWindow: 60000, // Set a higher recvWindow to increase response timeout
-    verbose: true, // Add extra output when subscribing to WebSockets, etc
-    log: log => {
-      console.log(log); // You can create your own logger here, or disable console output
-    }
-  });
-
-
-const baseURL = "https://api.binance.com";
-const query = '/api/v3/time';
-const url = baseURL + query;
-
-
-
-
-
 const DashHoldings = () => {
-
-    const [holdings, setHoldings] = useState([]);
-
-    const getHoldings = async () => {
-        axios
-            .get(
-                url
-            )
-            .then(res => {
-                setHoldings(res.data);
-                console.log(res.data);
-            })
-            .catch(error => console.log(error))
-
-        let ticker = await binance.prices();
-        console.log('price of Bitcoin: ' + ticker.BTCUSDT);
-
-        
-    }
-
-    useEffect(() => {
-        getHoldings()
-
-        const interval=setInterval(() => {
-            getHoldings()
-        }, 1000)
-
-        return() => clearInterval(
-            interval
-        )}, []
-    );
-    
-    
-
 
     return (
         <React.Fragment>

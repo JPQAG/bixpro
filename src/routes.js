@@ -182,6 +182,11 @@ const routes = [
       // },
       {
         exact: true,
+        path: 'app/dashboard/Holdings',
+        component: lazy(() => import('./views/cryptX/MacroView/Dashboard/Holdings/holdings.js'))
+      },
+      {
+        exact: true,
         path: '/app/dashboard/e-commerce',
         component: lazy(() => import('./views/dashboard/DashEcommerce'))
       },

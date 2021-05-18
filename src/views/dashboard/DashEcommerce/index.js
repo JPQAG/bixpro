@@ -21,9 +21,6 @@ const DashEcommerce = () => {
         coin.name.toLowerCase().includes(search.toLowerCase())
     );
     
-    
-    
-
     const getCoins = async () => {
         axios
             .get(

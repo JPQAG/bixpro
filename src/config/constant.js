@@ -40,5 +40,9 @@ export const CONFIG = {
     auth0: {
         client_id: 'CkaKvwheIhIQkybjTEQwN7ikcdHObsPh',
         domain: 'dev-w0-vxep3.us.auth0.com'
+    },
+    binance: {
+        secretKey: 'Oybc02pQQScPaFEP6KjAyGeVLgXzjFBx90xGQ4pQRNXZMepsH6yR6jbHFYutmBXy',
+        apiKey: 'wPzSIGZZACmKjwLNhDBOMq8yUKv9l0xQ9zTsijYpQ1HZDYYt0tYndpbJQATEk5ih'
     }
 };

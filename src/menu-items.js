@@ -40,7 +40,7 @@ const menuItems = {
                                 id: 'holdings',
                                 title: 'Holdings',
                                 type: 'item',
-                                url: ''
+                                url: 'Project'
                             },
                             {
                                 id: 'trading',
