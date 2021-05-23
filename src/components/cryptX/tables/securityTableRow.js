@@ -1,5 +1,4 @@
 import React from 'react';
-import { Caption } from 'react-bootstrap/lib/Carousel';
 
 var formatter - new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -65,6 +64,6 @@ const SecurityTableRow = ( {
             </td>
         </tr>
     )
-}
+};
 
 export default SecurityTableRow;
