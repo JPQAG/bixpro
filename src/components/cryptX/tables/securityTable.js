@@ -1,10 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, Table, Tab, Nav, Form, InputGroup, FormControl } from 'react-bootstrap';
 
+import axios from 'axios';
 
 import SecurityTableRow from './securityTableRow';
 
 const SecurityTableComponent = () => {
+
+    const [coins, setCoins] = useState([]);
+    const [search, setSearch] = useState('');
+
+    const url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false';
+
+    const filteredCoins = coins.filter(coin => 
+        coin.name.toLowerCase().include(search.toLowerCase())
+    )
+
+    const getCoins = async () => {
+        axios
+            .get(
+                url
+            )
+            .then(res => {
+                setCoins(res.data);
+            })
+            .catch(error => console.log(error));
+    }
+
+    useEffect(() => {
+        getCoins()
+
+        const interval=serInterval(() => {
+            getCoins()
+        }, 1000)
+
+        return() => clearInterval(
+            interval
+        )
+    }, []);q
 
     const handleChange = e => {
         setSearch(e.target.value)

@@ -7,13 +7,7 @@ import makeData from '../../../data/tableData';
 import ModuleNotification from '../../../components/Widgets/Statistic/Notification';
 
 function Table({ columns, data }) {
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-  } = useTable(
+  const {getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, } = useTable(
     {
       columns,
       data,

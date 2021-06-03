@@ -1,4 +1,12 @@
+//IMPORTS
+///React imports. 
+////Suspense lets components 'wait' for something before rendering - loading component with react.lazy
+////Fragment allows you to group a list of children without adding extra nodes to the DOM.
+////Lazy is a function that enables rendering of a dynamic import as a regular component.
 import React, { Suspense, Fragment, lazy } from 'react';
+///React-Router imports
+////Switch renders the first <Route> or <Redirect> that matches the location
+////Redirect is rendered to navigate to a new location
 import { Switch, Redirect, Route } from 'react-router-dom';
 
 import Loader from "./components/Loader/Loader";
@@ -10,8 +18,11 @@ import AuthGuard from "./components/Auth/AuthGuard";
 import { BASE_URL } from "./config/constant";
 
 export const renderRoutes = (routes = []) => (
+  // Suspense to allow wait for lazy 
   <Suspense fallback={<Loader />}>
+    {/* Switch allows the first matching route to render  */}
     <Switch>
+      {/* Map through all routes and render that which matches  */}
       {routes.map((route, i) => {
         const Guard = route.guard || Fragment;
         const Layout = route.layout || Fragment;
@@ -23,8 +34,11 @@ export const renderRoutes = (routes = []) => (
             path={route.path}
             exact={route.exact}
             render={(props) => (
+              // Check Guard 
               <Guard>
+                {/* Use Layout  */}
                 <Layout>
+                  {/* If more than one child then iterate to find first matching base  */}
                   {route.routes
                     ? renderRoutes(route.routes)
                     : <Component {...props} />}

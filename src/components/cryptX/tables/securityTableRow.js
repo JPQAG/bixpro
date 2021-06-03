@@ -1,6 +1,6 @@
 import React from 'react';
 
-var formatter - new Intl.NumberFormat('en-US', {
+var formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD'
 })
