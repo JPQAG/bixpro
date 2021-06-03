@@ -38,7 +38,7 @@ export const renderRoutes = (routes = []) => (
               <Guard>
                 {/* Use Layout  */}
                 <Layout>
-                  {/* If more than one child then iterate to find first matching base  */}
+                  {/* If more than one child then iterate to find first matching base and lazy render the component */}
                   {route.routes
                     ? renderRoutes(route.routes)
                     : <Component {...props} />}
@@ -189,11 +189,11 @@ const routes = [
         path: '/app/dashboard/default',
         component: lazy(() => import('./views/dashboard/DashDefault'))
       },
-      // {
-      //   exact: true,
-      //   path: '/app/dashboard/summary',
-      //   component: lazy(() => import('./views/cryptX/MacroView/Dashboard/Summary'))
-      // },
+      {
+        exact: true,
+        path: '/app/dashboard/summary',
+        component: lazy(() => import('./views/cryptX/MacroView/Dashboard/Summary'))
+      },
       {
         exact: true,
         path: 'app/dashboard/Holdings',
@@ -224,6 +224,12 @@ const routes = [
         path: '/app/dashboard/project',
         component: lazy(() => import('./views/dashboard/DashProject'))
       },
+      // Start cryptx routes 
+      // {
+      //   exact: true,
+      //   path: '/app/dashboard/MacroView/Summary',
+      //   component: lazy(() => import('./views/cryptX/MacroView'))
+      // },
       {
         exact: true,
         path: '/app/widgets/widget-statistic',

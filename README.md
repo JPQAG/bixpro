@@ -18,3 +18,7 @@ If you want to learn more about creating good readme files then refer the follow
 - [ASP.NET Core](https://github.com/aspnet/Home)
 - [Visual Studio Code](https://github.com/Microsoft/vscode)
 - [Chakra Core](https://github.com/Microsoft/ChakraCore)
+
+# A note on Routes
+When adding a route add it in routes.js within srcs and adjust the navigational menu-items.
+However note that the navigation has a baseUrl set within constant.js within config and thus the paths must be relative to this base url.

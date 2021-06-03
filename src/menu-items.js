@@ -46,7 +46,7 @@ const menuItems = {
                                 id: 'trading',
                                 title: 'Trading',
                                 type: 'item',
-                                url: ''
+                                url: '/layout/vertical/static'
                             }
                         ]
                     },
