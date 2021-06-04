@@ -16,37 +16,37 @@ const menuItems = {
                                 id: 'summary',
                                 title: 'Summary',
                                 type: 'item',
-                                url: 'crypto'
+                                url: '/MacroView/Dashboard/Summary'
                             },
                             {
                                 id: 'markets',
                                 title: 'Markets',
                                 type: 'item',
-                                url: 'e-commerce'
+                                url: '/MacroView/Dashboard/Markets'
                             },
                             {
                                 id: 'securities',
                                 title: 'Securities',
                                 type: 'item',
-                                url: 'CRM'
+                                url: '/MacroView/Dashboard/Securities'
                             },
                             {
                                 id: 'valuation',
                                 title: 'Valuation',
                                 type: 'item',
-                                url: 'Project'
+                                url: '/MacroView/Dashboard/Valuation'
                             },
                             {
                                 id: 'holdings',
                                 title: 'Holdings',
                                 type: 'item',
-                                url: 'Project'
+                                url: '/MacroView/Dashboard/Holdings'
                             },
                             {
                                 id: 'trading',
                                 title: 'Trading',
                                 type: 'item',
-                                url: '/layout/vertical/static'
+                                url: '/MacroView/Dashboard/Trading'
                             }
                         ]
                     },
@@ -60,31 +60,31 @@ const menuItems = {
                                 id: 'consolidated',
                                 title: 'Consolidated',
                                 type: 'item',
-                                url: ''
+                                url: '/MacroView/Media/Consolidated'
                             },
                             {
                                 id: 'bloomberg',
                                 title: 'Bloomberg',
                                 type: 'item',
-                                url: ''
+                                url: '/MacroView/Media/Bloomberg'
                             },
                             {
                                 id: 'reuters',
                                 title: 'Reuters',
                                 type: 'item',
-                                url: ''
+                                url: '/MacroView/Media/Reuters'
                             },
                             {
                                 id: 'coinbase',
                                 title: 'Coinbase',
                                 type: 'item',
-                                url: ''
+                                url: '/MacroView/Media/Coinbase'
                             },
                             {
-                                id: 'forum',
-                                title: 'Forum',
+                                id: 'forums',
+                                title: 'Forums',
                                 type: 'item',
-                                url: ''
+                                url: '/MacroView/Media/Forums'
                             }                            
                         ]
                     }
@@ -106,13 +106,13 @@ const menuItems = {
                                 id: 'stablecoins',
                                 title: 'Stablecoins',
                                 type: 'item',
-                                url: ''
+                                url: '/Markets/Cryptocurrency/Stablecoins'
                             },
                             {
                                 id: 'altcoins',
                                 title: 'Altcoins',
                                 type: 'item',
-                                url: ''
+                                url: '/Markets/Cryptocurrency/Altcoins'
                             }
                         ]
                     }
@@ -134,19 +134,19 @@ const menuItems = {
                                 id: 'allcrypto',
                                 title: 'All Crypto',
                                 type: 'item',
-                                url: ''
+                                url: '/Securities/CoinSearch/AllCrypto'
                             },
                             {
                                 id: 'stablecoins',
                                 title: 'Stablecoins',
                                 type: 'item',
-                                url: ''
+                                url: '/Securities/CoinSearch/Stablecoins'
                             },
                             {
                                 id: 'altcoins',
                                 title: 'Altcoins',
                                 type: 'item',
-                                url: ''
+                                url: '/Securities/CoinSearch/Altcoins'
                             }
                         ]
                     }
@@ -163,28 +163,28 @@ const menuItems = {
                         title: 'Valuation',
                         type: 'item',
                         icon: 'feather icon-activity',
-                        url: ''
+                        url: '/Portfolio/Valuation'
                     },
                     {
                         id: 'holdings',
                         title: 'Holdings',
                         type: 'item',
                         icon: 'feather icon-pie-chart',
-                        url: ''
+                        url: '/Portfolio/Holdings'
                     },
                     {
                         id: 'historicaltrades',
                         title: 'Historical Trades',
                         type: 'item',
                         icon: 'feather icon-skip-back',
-                        url: ''
+                        url: '/Portfolio/HistoricalTrades'
                     },
                     {
                         id: 'investmentmovements',
                         title: 'Investment Movements',
                         type: 'item',
                         icon: 'feather icon-trending-up',
-                        url: ''
+                        url: '/Portfolio/InvestmentMovements'
                     }
                 ]
             },
@@ -199,14 +199,14 @@ const menuItems = {
                         title: 'Trade Now',
                         type: 'item',
                         icon: 'feather icon-shuffle',
-                        url: ''
+                        url: '/Trading/TradeNow'
                     },
                     {
                         id: 'algorithmicbottrader',
                         title: 'Algorithmic Bot Trader',
                         type: 'item',
                         icon: 'feather icon-codepen',
-                        url: ''
+                        url: '/Trading/AlgorithmicBotTrader'
                     }
                 ]
             },
@@ -221,21 +221,21 @@ const menuItems = {
                         title: 'Education',
                         type: 'item',
                         icon: 'feather icon-bookmark',
-                        url: ''
+                        url: '/Other/Education'
                     },
                     {
                         id: 'accountmanagement',
                         title: 'Account Management',
                         type: 'item',
                         icon: 'feather icon-user',
-                        url: ''
+                        url: '/Other/AccountManagement'
                     },
                     {
                         id: 'settings',
                         title: 'Settings',
                         type: 'item',
                         icon: 'feather icon-settings',
-                        url: ''
+                        url: '/Other/Settings'
                     }
                 ]
             }

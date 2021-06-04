@@ -1,5 +1,5 @@
 export const BASENAME = '/cryptX'; // don't add '/' at end off BASENAME
-export const BASE_URL = '/app/dashboard/default';
+export const BASE_URL = '/app/dashboard/default'; //'/app/dashboard/default'
 export const BASE_TITLE = ' | cryptX';
 
 export const CONFIG = {

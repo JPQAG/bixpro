@@ -229,117 +229,142 @@ const routes = [
       ////Dashboard
       {
         exact: true,
-        path: '/app/dashboard/MacroView/Dashboard/Summary',
-        component: lazy(() => import('./views/cryptX/MacroView/Dashboard/Summary'))
+        path: '/MacroView/Dashboard/Summary',
+        component: lazy(() => import('./views/cryptX/MacroView/Dashboard/Summary/index.js'))
       },
       {
         exact: true,
-        path: '/app/dashboard/MacroView/Dashboard/Markets',
+        path: '/MacroView/Dashboard/Markets',
         component: lazy(() => import('./views/cryptX/MacroView/Dashboard/Markets'))
       },
       {
         exact: true,
-        path: '/app/dashboard/MacroView/Dashboard/Securities',
+        path: '/MacroView/Dashboard/Securities',
         component: lazy(() => import('./views/cryptX/MacroView/Dashboard/Securities'))
       },
       {
         exact: true,
-        path: '/app/dashboard/MacroView/Dashboard/Valuation',
+        path: '/MacroView/Dashboard/Valuation',
         component: lazy(() => import('./views/cryptX/MacroView/Dashboard/Valuation'))
       },
       {
         exact: true,
-        path: '/app/dashboard/MacroView/Dashboard/Holdings',
+        path: '/MacroView/Dashboard/Holdings',
         component: lazy(() => import('./views/cryptX/MacroView/Dashboard/Holdings'))
       },
       {
         exact: true,
-        path: '/app/dashboard/MacroView/Dashboard/Trading',
+        path: '/MacroView/Dashboard/Trading',
         component: lazy(() => import('./views/cryptX/MacroView/Dashboard/Trading'))
       },
       ////Media
       {
         exact: true,
-        path: '/app/dashboard/MacroView/Media/Consolidated',
+        path: '/MacroView/Media/Consolidated',
         component: lazy(() => import('./views/cryptX/MacroView/Media/Consolidated'))
       },
       {
         exact: true,
-        path: '/app/dashboard/MacroView/Media/Bloomberg',
+        path: '/MacroView/Media/Bloomberg',
         component: lazy(() => import('./views/cryptX/MacroView/Media/Bloomberg'))
       },
       {
         exact: true,
-        path: '/app/dashboard/MacroView/Media/Reuters',
+        path: '/MacroView/Media/Reuters',
         component: lazy(() => import('./views/cryptX/MacroView/Media/Reuters'))
       },
       {
         exact: true,
-        path: '/app/dashboard/MacroView/Media/Coinbase',
+        path: '/MacroView/Media/Coinbase',
         component: lazy(() => import('./views/cryptX/MacroView/Media/Coinbase'))
       },
       {
         exact: true,
-        path: '/app/dashboard/MacroView/Media/Forums',
+        path: '/MacroView/Media/Forums',
         component: lazy(() => import('./views/cryptX/MacroView/Media/Forums'))
       },
       ///Markets
       ////CryptoCurrency
       {
         exact: true,
-        path: '/app/dashboard/Markets/Cryptocurrency/Stablecoins',
+        path: '/Markets/Cryptocurrency/Stablecoins',
         component: lazy(() => import('./views/cryptX/Markets/Cryptocurrency/Stablecoins'))
       },
       {
         exact: true,
-        path: '/app/dashboard/Markets/Cryptocurrency/Altcoins',
+        path: '/Markets/Cryptocurrency/Altcoins',
         component: lazy(() => import('./views/cryptX/Markets/Cryptocurrency/Altcoins'))
       },
       ///Securities
       ////Coin Search
       {
         exact: true,
-        path: '/app/dashboard/Securities/CoinSearch/AllCrypto',
+        path: '/Securities/CoinSearch/AllCrypto',
         component: lazy(() => import('./views/cryptX/Securities/CoinSearch/AllCrypto'))
       },
       {
         exact: true,
-        path: '/app/dashboard/Securities/CoinSearch/Stablecoins',
+        path: '/Securities/CoinSearch/Stablecoins',
         component: lazy(() => import('./views/cryptX/Securities/CoinSearch/Stablecoins'))
       },
       {
         exact: true,
-        path: '/app/dashboard/Securities/CoinSearch/Altcoins',
+        path: '/Securities/CoinSearch/Altcoins',
         component: lazy(() => import('./views/cryptX/Securities/CoinSearch/Altcoins'))
       },
       ///Portfolio
       ////Valuation
       {
         exact: true,
-        path: '/app/dashboard/Portfolio/Valuation',
+        path: '/Portfolio/Valuation',
         component: lazy(() => import('./views/cryptX/Portfolio/Valuation'))
       },
       {
         exact: true,
-        path: '/app/dashboard/Portfolio/Holdings',
+        path: '/Portfolio/Holdings',
         component: lazy(() => import('./views/cryptX/Portfolio/Holdings'))
       },
       {
         exact: true,
-        path: '/app/dashboard/Portfolio/HistoricalTrades',
+        path: '/Portfolio/HistoricalTrades',
         component: lazy(() => import('./views/cryptX/Portfolio/HistoricalTrades'))
       },
       {
         exact: true,
-        path: '/app/dashboard/Portfolio/InvestmentMovements',
+        path: '/Portfolio/InvestmentMovements',
         component: lazy(() => import('./views/cryptX/Portfolio/InvestmentMovements'))
+      },
+      ///Trading
+      ////TradeNow
+      {
+        exact: true,
+        path: '/Trading/TradeNow',
+        component: lazy(() => import('./views/cryptX/Trading/TradeNow'))
       },
       {
         exact: true,
-        path: '/app/dashboard/Portfolio/InvestmentMovements',
-        component: lazy(() => import('./views/cryptX/Portfolio/InvestmentMovements'))
+        path: '/Trading/AlgorithmicBotTrader',
+        component: lazy(() => import('./views/cryptX/Trading/AlgorithmicBotTrader'))
       },
-
+      ///Other
+      ////Education
+      {
+        exact: true,
+        path: '/Other/Education',
+        component: lazy(() => import('./views/cryptX/Other/Education'))
+      },
+      ////Account Management
+      {
+        exact: true,
+        path: '/Other/AccountManagement',
+        component: lazy(() => import('./views/cryptX/Other/AccountManagement'))
+      },
+      ////Settings
+      {
+        exact: true,
+        path: '/Other/Settings',
+        component: lazy(() => import('./views/cryptX/Other/Settings'))
+      },
       //End Cryptx Routes
       {
         exact: true,
