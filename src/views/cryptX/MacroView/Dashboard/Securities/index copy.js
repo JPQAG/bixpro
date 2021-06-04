@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import AmChartEarnings1 from "./chart/AmChartEarnings1";
 import AmChartYearlySummary from "./chart/AmChartYearlySummary";
 
-import shape5 from '../../../../../assets/images/widget/shape5.png';
+import shape5 from '../../../assets/images/widget/shape5.png';
 import axios from 'axios';
 
 import Coin from './coin';
