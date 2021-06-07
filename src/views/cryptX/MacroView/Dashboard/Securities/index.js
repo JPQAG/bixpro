@@ -39,6 +39,8 @@ const DashEcommerce = () => {
             getCoins()
         }, 1000)
 
+        console.log(coins)
+
         return() => clearInterval(
             interval
             )
