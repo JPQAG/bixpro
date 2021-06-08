@@ -3,6 +3,7 @@
   "version": "17.0.1",
   "private": true,
   "homepage": "",
+  "proxy": "http://localhost:8180",
   "dependencies": {
     "@amcharts/amcharts3-react": "^3.1.0",
     "@amcharts/amcharts4": "^4.10.15",
@@ -40,6 +41,7 @@
     "highcharts": "^8.2.2",
     "highcharts-react-official": "^3.0.0",
     "history": "^5.0.0",
+    "http-proxy-middleware": "^0.19.1",
     "install": "^0.13.0",
     "jodit": "^3.5.4",
     "jodit-react": "^1.0.70",
@@ -49,6 +51,7 @@
     "match-sorter": "4.0.0",
     "namor": "^2.0.2",
     "nib-core": "1.0.4",
+    "node-binance-api": "^0.12.5",
     "node-sass": "^4.14.1",
     "npm": "^6.14.9",
     "pnotify": "4.0.0",

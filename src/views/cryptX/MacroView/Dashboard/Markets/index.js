@@ -1,9 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import FullTable from '../../../../../components/cryptX/tables/React/FullTable';
+import FullTable from '../../../../../components/cryptX/tables/React/AllCoinsTable';
 
 
-const ComingSoon = () => {
+const Markets = () => {
     return (
         <React.Fragment>
             <FullTable></FullTable>
@@ -11,4 +11,4 @@ const ComingSoon = () => {
     );
 };
 
-export default ComingSoon;
+export default Markets;
