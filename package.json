@@ -2,7 +2,7 @@
   "name": "datta-able-react-hook",
   "version": "17.0.1",
   "private": true,
-  "homepage": "http://demo.codedthemes.com/datta-able/react/default/",
+  "homepage": "",
   "dependencies": {
     "@amcharts/amcharts3-react": "^3.1.0",
     "@amcharts/amcharts4": "^4.10.15",
