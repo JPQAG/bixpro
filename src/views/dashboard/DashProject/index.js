@@ -30,10 +30,6 @@ const baseURL = "https://api.binance.com";
 const query = '/api/v3/time';
 const url = baseURL + query;
 
-
-
-
-
 const DashHoldings = () => {
 
     const [holdings, setHoldings] = useState([]);
