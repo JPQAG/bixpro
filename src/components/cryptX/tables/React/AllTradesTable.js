@@ -121,10 +121,10 @@ function App() {
   const columns = React.useMemo(
     () => [
       {
-        Header: 'Security Information',
+        Header: 'Trade Information',
         columns: [
           {
-            Header: 'Symbol',
+            Header: 'Trade ID',
             accessor: 'symbol',
           },
           {
@@ -143,6 +143,7 @@ function App() {
 
   const [ search, setSearch ] = useState('');
   const [ holdings, setHoldings ] = useState('');
+  const [ trades, setTrades ] = useState('');
   
 
   const getHoldings = async () => {
@@ -154,9 +155,9 @@ function App() {
       setHoldings(balances)
       return balances;
     })
-    binance.trades("SNMBTC", (error, trades, symbol) => {
-        console.info(symbol+" trade history", trades);
-    });
+    setTrades(binance.trades("ETHAUD", (error, trades, symbol) => {
+      console.info(symbol+" trade history", trades);
+    }));
   }
 
   useEffect(() => {
