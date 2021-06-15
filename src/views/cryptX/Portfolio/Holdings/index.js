@@ -8,7 +8,7 @@ import BitcoinWalletValCard from "../../../../components/cryptX/cards/BitcoinWal
 import EthereumWalletValCard from "../../../../components/cryptX/cards/EthereumWalletVal.js"
 import TotalWalletValCard from "../../../../components/cryptX/cards/TotalWalletVal.js"
 
-const Markets = () => {
+const Holdings = () => {
 
 
 
@@ -52,4 +52,4 @@ const Markets = () => {
     );
 };
 
-export default Markets;
+export default Holdings;
