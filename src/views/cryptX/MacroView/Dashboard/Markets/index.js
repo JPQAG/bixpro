@@ -17,7 +17,7 @@ const Markets = () => {
                 <Col xl={12} md={10} >
                     <Card>
                         <Card.Header>
-                            <Card.Title as="h5">Market Composition</Card.Title>
+                            <Card.Title as="h5">Market Performance</Card.Title>
                         </Card.Header>
                         <Card.Body>
                             <MarketsPriceLineAreaChart></MarketsPriceLineAreaChart>
