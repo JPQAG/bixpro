@@ -4,6 +4,7 @@ import FullTable from '../../../../../components/cryptX/tables/React/AllCoinsTab
 import MarketsMarketCapPieDonutChart from '../../../../../components/cryptX/charts/chart/MarketsMarketCapPieDonutChart.js';
 import OneDayReturnBarChart from '../../../../../components/cryptX/charts/chart/OneDayReturnBarChart.js';
 import MarketsBubbleChart from '../../../../../components/cryptX/charts/chart/MarketsBubbleChart.js';
+import MarketsPriceLineAreaChart from '../../../../../components/cryptX/charts/chart/MarketsPriceLineAreaChart.js';
 
 import {Row, Col, Card} from 'react-bootstrap';
 
@@ -13,6 +14,16 @@ const Markets = () => {
     return (
         <React.Fragment>
             <Row>
+                <Col xl={12} md={10} >
+                    <Card>
+                        <Card.Header>
+                            <Card.Title as="h5">Market Composition</Card.Title>
+                        </Card.Header>
+                        <Card.Body>
+                            <MarketsPriceLineAreaChart></MarketsPriceLineAreaChart>
+                        </Card.Body>
+                    </Card>
+                </Col>
                 <Col xl={6} md={10} >
                     <Card>
                         <Card.Header>
