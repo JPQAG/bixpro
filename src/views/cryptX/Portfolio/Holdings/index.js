@@ -10,8 +10,6 @@ import TotalWalletValCard from "../../../../components/cryptX/cards/TotalWalletV
 
 const Holdings = () => {
 
-
-
     return (
         <React.Fragment>
             <Row>
