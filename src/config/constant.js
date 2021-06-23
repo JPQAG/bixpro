@@ -42,8 +42,8 @@ export const CONFIG = {
         domain: 'dev-w0-vxep3.us.auth0.com'
     },
     binance: {
-        APIKEY: CONFIG.binance.apiKey,
-        APISECRET: CONFIG.binance.secretKey,
+        secretKey: 'Oybc02pQQScPaFEP6KjAyGeVLgXzjFBx90xGQ4pQRNXZMepsH6yR6jbHFYutmBXy',
+        apiKey: 'wPzSIGZZACmKjwLNhDBOMq8yUKv9l0xQ9zTsijYpQ1HZDYYt0tYndpbJQATEk5ih',
         useServerTime: true,
         recvWindow: 5000, // Set a higher recvWindow to increase response timeout
         verbose: true, // Add extra output when subscribing to WebSockets, etc
