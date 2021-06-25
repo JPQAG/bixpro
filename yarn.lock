@@ -6410,6 +6410,11 @@
     "@emotion/weak-memoize" "0.2.5"
     "hoist-non-react-statics" "^3.3.0"
 
+"empty-dir@^0.1.0":
+  "integrity" "sha1-SRW9i2N3PD9Fiy3FAznJCISchPA="
+  "resolved" "https://registry.npmjs.org/empty-dir/-/empty-dir-0.1.0.tgz"
+  "version" "0.1.0"
+
 "encodeurl@~1.0.2":
   "integrity" "sha1-rT/0yG7C0CkyL1oCw6mmBslbP1k="
   "resolved" "https://registry.npmjs.org/encodeurl/-/encodeurl-1.0.2.tgz"
@@ -13304,6 +13309,13 @@
     "chalk" "^2.4.2"
     "source-map" "^0.6.1"
     "supports-color" "^6.1.0"
+
+"postgresql@^0.0.1":
+  "integrity" "sha1-8HwXnZN+DFTuc1oV6y5GKxlnq3A="
+  "resolved" "https://registry.npmjs.org/postgresql/-/postgresql-0.0.1.tgz"
+  "version" "0.0.1"
+  dependencies:
+    "empty-dir" "^0.1.0"
 
 "preact@^10.0.5":
   "integrity" "sha512-X4m+4VMVINl/JFQKALOCwa3p8vhMAhBvle0hJ/W44w/WWfNb2TA7RNicDV3K2dNVs57f61GviEnVLiwN+fxiIg=="

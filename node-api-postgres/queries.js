@@ -1,3 +1,6 @@
+
+const axios = require('axios');
+
 const Pool = require('pg').Pool
 const pool = new Pool({
   user: 'postgres',
@@ -7,8 +10,33 @@ const pool = new Pool({
   port: 5432,
 })
 
+const url = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=USD'
+
+const getData = async () => {
+    axios
+        .get(
+            url
+        )
+        .then(res => {
+            const dataReturned = res.data;
+            const price = res.data['bitcoin']['usd'];
+            const time = Date.now();
+            pool.query('INSERT INTO testData (time, price) VALUES ($1, $2)', [time, price], (error, results) => {
+                if (error) {
+                    throw error
+                }
+            });
+            console.log(price, time);
+        })
+        .catch(error=> console.log(error));
+};
+
+const interval=setInterval(() => {
+    getData()
+}, 1000)
+
 const getUsers = (request, response) => {
-  pool.query('SELECT * FROM users', (error, results) => {
+  pool.query('SELECT * FROM testData', (error, results) => {
     if (error) {
       throw error
     }
