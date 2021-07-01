@@ -126,7 +126,30 @@ const getNumberOfRows = async ( ) => {
       };
     }
   )
-}
+};
+
+//SQL Query - get latest exchange_trade_id in database
+const getLatestDatabaseTrade = async ( pair ) => {
+  /**
+   * Summary: Get the ID of the latest trade in the database for a pair.
+   * 
+   * Description: Query the database and return the max value for the id in market_trades;
+   * 
+   * 
+   * @PARAM   {varchar}     pair = pair that will filter the database table;
+   */
+   try {
+    const res = await pool.query(
+      `SELECT MAX(exchange_trade_id) FROM market_trades WHERE pair = $1`,
+      [ pair ]
+    );
+    console.log(`Most recent trade in database for ${pair}: ${res.rows[0].max}.`);
+    return res.rows[0].max;
+  } catch (err) {
+    console.log('Error in fetching most recent trade in database for this pair.');
+    return err.stack;
+  }
+};
 
 ////////
 //MAIN
@@ -152,7 +175,7 @@ const updateTradesTable = async () => {
       if (error) {
         console.log('Error in fetching number of Market Trades in Database')
       } else {
-        console.log(`Number of Records before Update: ${results.rows[0].count}`);
+        console.log(`Number of TOTAL Records before Update: ${results.rows[0].count}`);
       };
     }
   );
@@ -173,10 +196,10 @@ const updateTradesTable = async () => {
 
     //Set iterating symbol to update its data
     let tradePairSymbol = tradesPair[i] + base;
-    console.log(`Updating table for pair: ${tradesPair[i]}`);
+    console.log(`Updating table for pair: ${tradePairSymbol}`);
 
     //Pre-run checks
-    ///Number of Trades in database before:
+    ///Number of Trades in database before updating
     pool.query(
       'SELECT COUNT(*) FROM market_trades WHERE pair = $1',
       [tradePairSymbol],
@@ -188,12 +211,16 @@ const updateTradesTable = async () => {
         };
       }
     );
-
+    //Get latest trade in database for pair.
+    const latestDatabaseTrade = await getLatestDatabaseTrade(tradePairSymbol);
+    console.log(latestDatabaseTrade);
+        
     //Get most recent trade id
     const latestTrade = await getRecentTradeID(tradePairSymbol);
+    console.log(`Most recent trade on market is: ${latestTrade}`);
 
     //loop through historical trades in lots of 500 starting from latest Trade ID.
-    for (let j = latestTrade; j > (latestTrade - 50000); j = j - 500) {
+    for (let j = latestTrade; j > latestDatabaseTrade; j = j - 500) {
       //Check for rate limits
       checker = await rateLimitChecker();
       if (!checker) {
@@ -225,21 +252,35 @@ const updateTradesTable = async () => {
             };
           }
         )
-      }
+      };
     };
 
-    //Get Number of rows after updating table
+    //Get Number of rows for security after updating table
     pool.query(
-      'SELECT COUNT(*) FROM market_trades',
+      'SELECT COUNT(*) FROM market_trades WHERE pair = $1',
+      [tradePairSymbol],
       (error, results) => {
         if (error) {
-          console.log('Error in fetching number of Market Trades in Database');
+          console.log('Error in fetching number of Market Trades in Database')
         } else {
-          console.log(`Number of Records after Update: ${results.rows[0].count}`);
+          console.log(`Number of Records for ${tradePairSymbol} after Update: ${results.rows[0].count}`);
         };
       }
     );
   };
+
+  //Get Number of rows after updating table
+  pool.query(
+    'SELECT COUNT(*) FROM market_trades',
+    (error, results) => {
+      if (error) {
+        console.log('Error in fetching number of Market Trades in Database');
+      } else {
+        console.log(`Number of Records after Update: ${results.rows[0].count}`);
+      };
+    }
+  );
+  
 
   console.log('Table Updated');
 };
