@@ -7,10 +7,12 @@ import MarketsBubbleChart from '../../../../../components/cryptX/charts/chart/Ma
 import MarketsPriceLineAreaChart from '../../../../../components/cryptX/charts/chart/MarketsPriceLineAreaChart.js';
 
 import {Row, Col, Card} from 'react-bootstrap';
+import Select from 'react-select';
 
 import axios from 'axios';
 
 const Markets = () => {
+
     return (
         <React.Fragment>
             <Row>
