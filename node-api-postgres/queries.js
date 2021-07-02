@@ -24,7 +24,7 @@ const pool = new Pool({ user: 'postgres', host: 'localhost', database: 'postgres
 ////////
 //FUNCTIONS
 ///Check Rate Limits
-const rateLimitChecker = async () => {
+const rateLimitChecker = async ( timestamp ) => {
   /**
    * Summary: Check Binance API Rate Limit. 
    * 
@@ -56,16 +56,23 @@ const rateLimitChecker = async () => {
   usedRequestsOneMinute = parseInt(usedRequestsOneMinute);
   //Calculate remaining weight to use
   const remainingWeight = rateLimit - usedRequestsOneMinute;
+  //Get current time
+  let dateNow = new Date();
+  let timestampNow = dateNow.getTime();
+  let timeSinceMinInterval = (timestampNow - timestamp);
   //Return result
-  if (remainingWeight < 550 && remainingWeight > 450) {
-    console.log(`API Call Warning: 450/550 weight remaining`);
-    return true;
-  } else if (remainingWeight > 50) {
-    return true;
+  if (remainingWeight > 50) {
+    return timestamp;
   } else {
-    return false;
-  }
+    console.log(`CALL LIMIT REACHED....Backing off API for ${(60000 - timeSinceMinInterval)/1000} seconds....`)
+    setTimeout(function(){
+      return timestamp;
+    }, (60000 - timeSinceMinInterval));
+    console.log(`API Call Breach - waiting...`)
+    return timestamp;
+  };
 };
+
 ///Get most Recent Trade id
 const getRecentTradeID = async ( pair ) => {
   /**
@@ -86,6 +93,7 @@ const getRecentTradeID = async ( pair ) => {
 
   return latestTrade;
 };
+
 ///SQL Query - get list of pairs that have historical trade data
 const getPairsWithData = async () => {
   /**
@@ -108,6 +116,7 @@ const getPairsWithData = async () => {
     }
   );
 };
+
 //SQL Query - get number of rows in table
 const getNumberOfRows = async ( ) => {
   /**
@@ -116,16 +125,36 @@ const getNumberOfRows = async ( ) => {
    * Description: Query Database and count the number of rows in a table. Return this number.
    */
   //Query the database
-  pool.query(
-    'SELECT COUNT(*) FROM market_trades',
-    (error, results) => {
-      if (error) {
-        return error;
-      } else {
-        return results;
-      };
-    }
-  )
+  try {
+    const res = await pool.query(
+      `SELECT COUNT(*) FROM market_trades`
+    );
+  return res.rows[0].count;
+  } catch (err) {
+    console.log(`Error in fetching number of trades.`);
+    return err.stack;
+  };
+};
+
+//SQL Query - get number of rows in table for pair
+const getNumberOfRowsForPair = async ( pair ) => {
+  /**
+   * Summary: Get Number of rows in the market trades database table.
+   * 
+   * Description: Query database and return the number of rows in the database market trades table for a particular security. Return the count.
+   * 
+   * @PARAM   {varchar}   pair = pair to filter by.
+   */
+  try {
+    const res = await pool.query(
+      `SELECT COUNT(*) FROM market_trades WHERE pair = $1`,
+      [ pair ]
+    );
+    return res.rows[0].count;
+  } catch (err) {
+    console.log('Error in fetching number of trades for this pair');
+    return err.stack;
+  }
 };
 
 //SQL Query - get latest exchange_trade_id in database
@@ -135,7 +164,6 @@ const getLatestDatabaseTrade = async ( pair ) => {
    * 
    * Description: Query the database and return the max value for the id in market_trades;
    * 
-   * 
    * @PARAM   {varchar}     pair = pair that will filter the database table;
    */
    try {
@@ -143,7 +171,6 @@ const getLatestDatabaseTrade = async ( pair ) => {
       `SELECT MAX(exchange_trade_id) FROM market_trades WHERE pair = $1`,
       [ pair ]
     );
-    console.log(`Most recent trade in database for ${pair}: ${res.rows[0].max}.`);
     return res.rows[0].max;
   } catch (err) {
     console.log('Error in fetching most recent trade in database for this pair.');
@@ -167,54 +194,37 @@ const updateTradesTable = async () => {
 
   //Initiate
   console.log('Starting update of market_trades Table...');
+  let currentTime = new Date();
+  let timestamp = currentTime.getTime();
+  console.log(`Timestamp: ${timestamp}`);
 
   //Get Number of rows before updating table
-  pool.query(
-    'SELECT COUNT(*) FROM market_trades',
-    (error, results) => {
-      if (error) {
-        console.log('Error in fetching number of Market Trades in Database')
-      } else {
-        console.log(`Number of TOTAL Records before Update: ${results.rows[0].count}`);
-      };
-    }
-  );
+  let numberOfRowsTotal = await getNumberOfRows();
+  console.log(`Number of total Trades in database at START: ${numberOfRowsTotal}`);
 
   //Set pairs and base securities that will be passed in
   const tradesPair = [ 'ETH', 'BTC' ];
   const base = "USDT";
 
+  let numberOfTrades = 0;
+
   //Loop through security list
   for (let i = 0; i < tradesPair.length; i++) {
     
     //Check for rate limits
-    let checker =  await rateLimitChecker();
-    if (!checker) {
-      console.log('API Request Limit breached... Breaking');
-      break;  
-    };
-
+    timestamp =  await rateLimitChecker( timestamp );
+    
     //Set iterating symbol to update its data
     let tradePairSymbol = tradesPair[i] + base;
     console.log(`Updating table for pair: ${tradePairSymbol}`);
 
     //Pre-run checks
     ///Number of Trades in database before updating
-    pool.query(
-      'SELECT COUNT(*) FROM market_trades WHERE pair = $1',
-      [tradePairSymbol],
-      (error, results) => {
-        if (error) {
-          console.log('Error in fetching number of Market Trades in Database')
-        } else {
-          console.log(`Number of Records for ${tradePairSymbol} before Update: ${results.rows[0].count}`);
-        };
-      }
-    );
+    let numberOfTrades = await getNumberOfRowsForPair(tradePairSymbol);
+    console.log(`Number of trades for ${tradePairSymbol}: ${numberOfTrades}`);
     //Get latest trade in database for pair.
     const latestDatabaseTrade = await getLatestDatabaseTrade(tradePairSymbol);
-    console.log(latestDatabaseTrade);
-        
+    console.log(`Latest trade in the database for ${tradePairSymbol}: ${latestDatabaseTrade}`);
     //Get most recent trade id
     const latestTrade = await getRecentTradeID(tradePairSymbol);
     console.log(`Most recent trade on market is: ${latestTrade}`);
@@ -222,11 +232,7 @@ const updateTradesTable = async () => {
     //loop through historical trades in lots of 500 starting from latest Trade ID.
     for (let j = latestTrade; j > latestDatabaseTrade; j = j - 500) {
       //Check for rate limits
-      checker = await rateLimitChecker();
-      if (!checker) {
-        console.log('API Request Limit breached... Breaking');
-        break;  
-      };
+      timestamp =  await rateLimitChecker( timestamp );
 
       //Get 500 Trades from the interating id
       let latestTradesData = await client2.tradesHistory({ symbol: tradePairSymbol, fromId: j });
@@ -256,36 +262,19 @@ const updateTradesTable = async () => {
     };
 
     //Get Number of rows for security after updating table
-    pool.query(
-      'SELECT COUNT(*) FROM market_trades WHERE pair = $1',
-      [tradePairSymbol],
-      (error, results) => {
-        if (error) {
-          console.log('Error in fetching number of Market Trades in Database')
-        } else {
-          console.log(`Number of Records for ${tradePairSymbol} after Update: ${results.rows[0].count}`);
-        };
-      }
-    );
+    //Get Number of rows before updating table
+    let numberOfRowsTotal = await getNumberOfRowsForPair( tradePairSymbol );
+    console.log(`Number of total Trades in database for ${tradePairSymbol} at END: ${numberOfRowsTotal}`);
   };
 
   //Get Number of rows after updating table
-  pool.query(
-    'SELECT COUNT(*) FROM market_trades',
-    (error, results) => {
-      if (error) {
-        console.log('Error in fetching number of Market Trades in Database');
-      } else {
-        console.log(`Number of Records after Update: ${results.rows[0].count}`);
-      };
-    }
-  );
+  numberOfRowsTotal = await getNumberOfRows();
+  console.log(`Number of total Trades in database at END: ${numberOfRowsTotal}`);
   
-
-  console.log('Table Updated');
+  console.log('Table Update Completed');
 };
 
-updateTradesTable();
+// updateTradesTable();
 
 ///Update securities data
 const updateSecuritiesTable = async () => {
