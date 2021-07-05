@@ -99,12 +99,16 @@ const ApexHistoricalPriceLineChart = () => {
             yaxis: [{
                 title: {
                     text: 'Price',
-                }
+                },
+                min: 100,
+                max: 500000
             }, {
                 opposite: true,
                 title: {
                     text: 'Price',
-                }
+                },
+                min: 100,
+                max: 500000
             }]
         },
         series: [{
@@ -121,11 +125,11 @@ const ApexHistoricalPriceLineChart = () => {
             name: 'BTCUSDT',
             type: 'line',
             data: [{
-                x: 1,
-                y: 2
+                x: 100000,
+                y: 200000
             },{
-                x: 1,
-                y: 2
+                x: 10000,
+                y: 20000
             }],
         }]
     };
@@ -133,9 +137,10 @@ const ApexHistoricalPriceLineChart = () => {
     const [ dataSeries, setDataSeries ] = useState(defaultData);
 
     const getData = async () => {
-        const dataLog = await getHistoricalPriceDataFromBinance( pairs[0], "30m", 50);
+        const dataLog = await getHistoricalPriceDataFromBinance( pairs[0], "30m", 350);
         console.log("DATALOG", dataLog.min);
-        const dataLogTwo = await getHistoricalPriceDataFromBinance( [pairs[1]], "30m", 50);
+        let min = parseInt(dataLog.min);
+        const dataLogTwo = await getHistoricalPriceDataFromBinance( [pairs[1]], "30m", 350);
         setDataSeries({
             width: '100%',
             height: 400,
@@ -164,15 +169,15 @@ const ApexHistoricalPriceLineChart = () => {
                     title: {
                         text: pairs[0] + ' Price',
                     },
-                    min: dataLog.min,
-                    max: dataLog.max
+                    min: parseInt(dataLog.min),
+                    max: parseInt(dataLog.max)
                 }, {
                     opposite: true,
                     title: {
                         text: pairs[1]  + ' Price',
                     },
-                    min: dataLogTwo.min,
-                    max: dataLogTwo.max
+                    min: parseInt(dataLogTwo.min),
+                    max: parseInt(dataLogTwo.max)
                 }]
             },
             series: [{
