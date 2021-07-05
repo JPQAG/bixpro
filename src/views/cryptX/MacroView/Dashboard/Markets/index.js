@@ -1,19 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import Chart from "react-apexcharts";
 import { Row, Col, Card, ButtonToolbar, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
-import useInterval from 'react-useinterval';
-import ApexCharts from 'apexcharts';
 import { NavLink } from 'react-router-dom';
 import FullTable from '../../../../../components/cryptX/tables/React/AllCoinsTable';
 import MarketsMarketCapPieDonutChart from '../../../../../components/cryptX/charts/chart/MarketsMarketCapPieDonutChart.js';
 import OneDayReturnBarChart from '../../../../../components/cryptX/charts/chart/OneDayReturnBarChart.js';
 import MarketsBubbleChart from '../../../../../components/cryptX/charts/chart/MarketsBubbleChart.js';
 import MarketsPriceLineAreaChart from '../../../../../components/cryptX/charts/chart/MarketsPriceLineAreaChart.js';
-// import HistoricalPriceChartApex from '../../../../../components/cryptX/charts/chart/HistoricalPriceChartApex.js';
-
-import Select from 'react-select';
-
-import axios from 'axios';
+import ApexHistoricalPriceLineChart from '../../../../../components/cryptX/charts/chart/ApexLineChart';
 
 const Markets = () => {
 
@@ -26,7 +19,7 @@ const Markets = () => {
                             <Card.Title as="h5">Market Performance</Card.Title>
                         </Card.Header>
                         <Card.Body>
-                            <MarketsPriceLineAreaChart></MarketsPriceLineAreaChart>
+                            <ApexHistoricalPriceLineChart></ApexHistoricalPriceLineChart>
                         </Card.Body>
                     </Card>
                 </Col>

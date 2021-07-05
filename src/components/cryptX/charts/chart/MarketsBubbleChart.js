@@ -17,7 +17,6 @@ function createBubbleData(data) {
                 data[holding]['symbol'].toUpperCase(),
                 data[holding]['market_cap']
             ]);
-            // console.log('Bubble Data', bubbleData);
         }
     }
     return bubbleData;
@@ -52,8 +51,6 @@ const MarketsBubbleChart = () => {
             getCoins()
         }, 60000)
   
-        console.log(coins)
-  
         return() => clearInterval(
             interval
             )
@@ -65,9 +62,6 @@ const MarketsBubbleChart = () => {
     }
     
     const data = createBubbleData(filteredCoins);
-
-    console.log("Here is bubble the data", data);
-
 
     return <Chart
         width='100%'

@@ -15,7 +15,6 @@ function createBarData(data) {
                 data[holding]['price_change_percentage_24h'],
                 data[holding]['ath_change_percentage']
             ]);
-            console.log(barData);
         }
     }
     return barData;
@@ -50,8 +49,6 @@ const OneDayReturnBarChart = () => {
             getCoins()
         }, 60000)
   
-        console.log(coins)
-  
         return() => clearInterval(
             interval
             )
@@ -63,9 +60,6 @@ const OneDayReturnBarChart = () => {
     }
     
     const data = createBarData(filteredCoins);
-
-    console.log("Here is bar the data", data);
-
 
     return <Chart
         width='100%'

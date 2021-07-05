@@ -15,7 +15,6 @@ function createPieData(data) {
                 data[holding]['symbol'].toUpperCase(),
                 data[holding]['market_cap']
             ]);
-            console.log(pieData);
         }
     }
 
@@ -50,9 +49,7 @@ function MarketsMarketCapPieDonutChart() {
         const interval=setInterval(() => {
             getCoins()
         }, 60000)
-  
-        console.log(coins)
-  
+    
         return() => clearInterval(
             interval
             )
@@ -64,8 +61,6 @@ function MarketsMarketCapPieDonutChart() {
     }
     
     const data = createPieData(filteredCoins);
-
-    console.log("Here is the data", data);
 
     return <Chart
         width='100%'
