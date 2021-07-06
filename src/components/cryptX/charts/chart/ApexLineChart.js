@@ -1,8 +1,11 @@
 //IMPORTS
 ///Library Imports
 import React, {useState, useEffect } from 'react';
-import {Row, Col, Card, Form } from 'react-bootstrap';
+import DatePicker from 'react-datepicker';
+import {Row, Col, Card, Form, Button, OverlayTrigger, Tooltip, ButtonGroup, ButtonToolbar } from 'react-bootstrap';
 import Chart from 'react-apexcharts';
+import Select from 'react-select';
+import chroma from 'chroma-js';
 import ApexCharts from 'apexcharts';
 
 ///Data/API Imports
@@ -65,13 +68,54 @@ const getHistoricalPriceDataFromBinance = async ( symbol, interval, limit ) => {
     };
 };
 
+//Main
 const ApexHistoricalPriceLineChart = () => {
 
-    let pairs = [
-        "ETHUSDT",
-        "BTCUSDT"
-    ]
+    //Set constants
+    const colourOptions = ['#1dc4e9', '#1de9b6', '#3ebfea', '#A389D4', '#899FD4'];
+    const pairs = ['ETHUSDT', 'BTCUSDT', 'ETHBTC'];
 
+    //Create Pair Options
+    const pairOptions = [
+        // { value: 'ETHBTC', label: 'ETH/BTC' }
+    ];
+    for (let i = 0; i < pairs.length; i++) {
+        let array = {};
+        array.value = pairs[i];
+        array.label = pairs[i];
+        array.color = colourOptions[i];
+        pairOptions.push(array);
+    }
+
+    //Chart Data Configuration
+    const chartTimePeriod = [
+        '1H',
+        '1D',
+        '1W',
+        '1M',
+        '3M',
+        '6M',
+        '1Y',
+        '3Y',
+        '5Y'
+    ];
+    const chartDataInterval = [
+        { value: '1m', label: '1m'},
+        { value: '3m', label: '3m'},
+        { value: '5m', label: '5m'},
+        { value: '15m', label: '15m'},
+        { value: '30m', label: '30m'},
+        { value: '1h', label: '1h'},
+        { value: '2h', label: '2h'},
+        { value: '4h', label: '4h'},
+        { value: '6h', label: '6h'},
+        { value: '8h', label: '8h'},
+        { value: '12h', label: '12h'},
+        { value: '1d', label: '1d'},
+        { value: '3d', label: '3d'},
+        { value: '1w', label: '1w'},
+        { value: '1M', label: '1M'}
+    ];
     let defaultData = {
         width: '100%',
         height: 400,
@@ -134,13 +178,60 @@ const ApexHistoricalPriceLineChart = () => {
         }]
     };
 
+    //Chart Trading Pair Selector Configuration
+    const colorStylesMulti = {
+        control: styles => ({ ...styles, backgroundColor: 'white' }),
+        option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+            const color = chroma(data.color);
+            return {
+                ...styles,
+                backgroundColor: isDisabled
+                    ? null
+                    : isSelected ? data.color : isFocused ? color.alpha(0.1).css() : null,
+                color: isDisabled
+                    ? '#ccc'
+                    : isSelected
+                        ? chroma.contrast(color, 'white') > 2 ? 'white' : 'black'
+                        : data.color,
+                cursor: isDisabled ? 'not-allowed' : 'default',
+            };
+        },
+        multiValue: (styles, { data }) => {
+            const color = chroma(data.color);
+            return {
+                ...styles,
+                backgroundColor: color.alpha(0.1).css(),
+            };
+        },
+        multiValueLabel: (styles, { data }) => ({
+            ...styles,
+            color: data.color,
+        }),
+        multiValueRemove: (styles, { data }) => ({
+            ...styles,
+            color: data.color,
+            ':hover': {
+                backgroundColor: data.color,
+                color: 'white',
+            },
+        }),
+    };
+
+    //Chart Timeperiod selector Configuration
+    const timeperiodButtonToolbar = chartTimePeriod.map((variant, idx) => (
+        <Button variant="outline-info" onClick={ timeperiodButtonToolbarHandler }>{variant}</Button>
+    ));
+
+    //State Configuration
     const [ dataSeries, setDataSeries ] = useState(defaultData);
+    const [ timeperiod, setTimeperiod ] = useState("1D")
+    const [ startDate, setStartDate ] = useState(new Date());
+    const [ endDate, setEndDate ] = useState(new Date() - 365);
 
     const getData = async () => {
-        const dataLog = await getHistoricalPriceDataFromBinance( pairs[0], "30m", 350);
+        const dataLog = await getHistoricalPriceDataFromBinance( pairOptions[0].value, "30m", 350);
         console.log("DATALOG", dataLog.min);
-        let min = parseInt(dataLog.min);
-        const dataLogTwo = await getHistoricalPriceDataFromBinance( [pairs[1]], "30m", 350);
+        const dataLogTwo = await getHistoricalPriceDataFromBinance( pairOptions[1].value, "30m", 350);
         setDataSeries({
             width: '100%',
             height: 400,
@@ -149,7 +240,7 @@ const ApexHistoricalPriceLineChart = () => {
                 stroke: {
                     width: [4, 4]
                 },
-                colors: ['#1de9b6', '#1dc4e9'],
+                colors: colourOptions,
                 fill: {
                     type: 'gradient',
                     gradient: {
@@ -167,25 +258,25 @@ const ApexHistoricalPriceLineChart = () => {
                 },
                 yaxis: [{
                     title: {
-                        text: pairs[0] + ' Price',
+                        text: pairOptions[0].value + ' Price',
                     },
                     min: parseInt(dataLog.min),
                     max: parseInt(dataLog.max)
                 }, {
                     opposite: true,
                     title: {
-                        text: pairs[1]  + ' Price',
+                        text: pairOptions[1].value  + ' Price',
                     },
                     min: parseInt(dataLogTwo.min),
                     max: parseInt(dataLogTwo.max)
                 }]
             },
             series: [{
-                name: pairs[0],
+                name: pairOptions[0].value,
                 type: 'line',
                 data: dataLog.data,
             },{
-                name: pairs[1],
+                name: pairOptions[1].value,
                 type: 'line',
                 data: dataLogTwo.data,
             }]
@@ -196,10 +287,60 @@ const ApexHistoricalPriceLineChart = () => {
         getData()
     });
 
+    //Change Handlers
+    const handleChangeStartDate = (date) => {
+        setStartDate(date);
+    };
+    const handleChangeEndDate = (date) => {
+        setEndDate(date);
+    };
 
+    const timeperiodButtonToolbarHandler = ( timeperiod ) => {
+        setTimeperiod(timeperiod);
+    };
+
+    //Render
     return (
         <React.Fragment>
-            <Chart {...dataSeries} />
+            <Row>
+                <Col xl={12} md={12}>
+                    <Form inline>
+                        <Col xl={6} md={12}>
+                            <Form.Group className="mb-2">
+                                <Form.Control plaintext readOnly defaultValue="Trading Pair:"/>
+                            </Form.Group>
+                            <Form.Group className="mb-2 mr-5">
+                                <Select 
+                                    closeMenuOnSelect={false}
+                                    defaultValue={[pairOptions[0], pairOptions[1]]}
+                                    isMulti
+                                    options={pairOptions}
+                                    styles={colorStylesMulti}
+                                />
+                            </Form.Group>
+                        </Col>
+                        <Col xl={6} md={12}>
+                            <Form.Group className="mb-2">
+                                <Form.Control plaintext readOnly defaultValue="Timeperiod:"/>
+                            </Form.Group>
+                            <Form.Group className="mb-2 mr-5">
+                                <ButtonToolbar aria-label="Toolbar with button groups">
+                                    <ButtonGroup className="mr-2" aria-label="First group" size="sm">
+                                        { timeperiodButtonToolbar }
+                                    </ButtonGroup>
+                                </ButtonToolbar>
+                            </Form.Group>
+                        </Col>
+                        {/* <Form.Group>
+                            <DatePicker selected={startDate} onChange={handleChangeStartDate} className="form-control" />
+                        </Form.Group>
+                        <Form.Group>
+                            <DatePicker selected={endDate} onChange={handleChangeEndDate} className="form-control" />
+                        </Form.Group> */}
+                    </Form>
+                    <Chart {...dataSeries} />
+                </Col>
+            </Row>
         </React.Fragment>
     );
 };
