@@ -218,20 +218,32 @@ const ApexHistoricalPriceLineChart = () => {
     };
 
     //Chart Timeperiod selector Configuration
+    const timeperiodButtonToolbarHandler = ( timeperiod ) => {
+        setTimeperiod(timeperiod);
+    };
     const timeperiodButtonToolbar = chartTimePeriod.map((variant, idx) => (
         <Button variant="outline-info" onClick={ timeperiodButtonToolbarHandler }>{variant}</Button>
     ));
 
     //State Configuration
+    const [ pairSelection, setPairSelection ] = useState(['ETHUSDT']);
+    const [ tickIntervalSelection, setTickIntervalSelection ] = useState("30m");
+    const [ tickQuantitySelection, setTickerQuantitySelection ] = useState( 350 );
     const [ dataSeries, setDataSeries ] = useState(defaultData);
     const [ timeperiod, setTimeperiod ] = useState("1D")
     const [ startDate, setStartDate ] = useState(new Date());
     const [ endDate, setEndDate ] = useState(new Date() - 365);
 
     const getData = async () => {
-        const dataLog = await getHistoricalPriceDataFromBinance( pairOptions[0].value, "30m", 350);
-        console.log("DATALOG", dataLog.min);
-        const dataLogTwo = await getHistoricalPriceDataFromBinance( pairOptions[1].value, "30m", 350);
+        let dataSeries = [];
+        let axisOptions = [];
+        for (let selection in pairSelection) {
+            dataSeries.push({
+                name: selection,
+                type: 'line',
+                data: await getHistoricalPriceDataFromBinance( selection, tickerIntervalSelection, tickQuantitySelection ),
+            })
+        };
         setDataSeries({
             width: '100%',
             height: 400,
@@ -271,15 +283,7 @@ const ApexHistoricalPriceLineChart = () => {
                     max: parseInt(dataLogTwo.max)
                 }]
             },
-            series: [{
-                name: pairOptions[0].value,
-                type: 'line',
-                data: dataLog.data,
-            },{
-                name: pairOptions[1].value,
-                type: 'line',
-                data: dataLogTwo.data,
-            }]
+            series: dataSeries
         });
     };
 
@@ -295,9 +299,7 @@ const ApexHistoricalPriceLineChart = () => {
         setEndDate(date);
     };
 
-    const timeperiodButtonToolbarHandler = ( timeperiod ) => {
-        setTimeperiod(timeperiod);
-    };
+
 
     //Render
     return (
