@@ -7,7 +7,7 @@ import OneDayReturnBarChart from '../../../../../components/cryptX/charts/chart/
 import MarketsBubbleChart from '../../../../../components/cryptX/charts/chart/MarketsBubbleChart.js';
 import MarketsPriceLineAreaChart from '../../../../../components/cryptX/charts/chart/MarketsPriceLineAreaChart.js';
 import ApexHistoricalPriceLineChart from '../../../../../components/cryptX/charts/chart/ApexLineChart';
-
+    
 const Markets = () => {
 
     return (

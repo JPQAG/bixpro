@@ -68,6 +68,45 @@ const getHistoricalPriceDataFromBinance = async ( symbol, interval, limit ) => {
     };
 };
 
+//Set Dataset and axes for chart
+const setChartDataDataAndConfigurations = async ( pairSelection, tickIntervalSelection, tickQuantitySelection ) => {
+    /**
+     * Summary: Create data for chart.
+     * 
+     * Description: Pull API and create datasets as well as chart axes.
+     * 
+     * @PARAM       {ARRAY}     pairSelection = array of securitypairs.
+     * @PARAM       {STRING}    tickIntervalSelection = interval for dataseries
+     * @PARAM       {INT}       tickQuantitySelection = Number of data points of interval    
+     */
+    //Loop through pairs in pairselection array
+    let dataSeriesArray = [];
+    let yConfigArray = [];
+    let oppositeBoolean = true;
+    pairSelection.forEach(async (pair, i) => {
+        let dataReturned = await getHistoricalPriceDataFromBinance( pair, tickIntervalSelection, tickQuantitySelection);
+        ((i + 2) % 2 === 0) ? (oppositeBoolean = false) : (oppositeBoolean = true);
+        dataSeriesArray.push({
+            name: pair,
+            type: 'line',
+            data: dataReturned.data
+        });
+        yConfigArray.push({
+            opposite: oppositeBoolean,
+            title: {
+                text: pair + ' Price'
+            },
+            min: dataReturned.min,
+            max: dataReturned.max
+        });        
+    });
+
+    return {
+        dataSeriesArray: dataSeriesArray,
+        yConfigArray: yConfigArray
+    };
+};
+
 //Main
 const ApexHistoricalPriceLineChart = () => {
 
@@ -228,22 +267,14 @@ const ApexHistoricalPriceLineChart = () => {
     //State Configuration
     const [ pairSelection, setPairSelection ] = useState(['ETHUSDT']);
     const [ tickIntervalSelection, setTickIntervalSelection ] = useState("30m");
-    const [ tickQuantitySelection, setTickerQuantitySelection ] = useState( 350 );
+    const [ tickQuantitySelection, setTickerQuantitySelection ] = useState( 10 );
     const [ dataSeries, setDataSeries ] = useState(defaultData);
     const [ timeperiod, setTimeperiod ] = useState("1D")
     const [ startDate, setStartDate ] = useState(new Date());
     const [ endDate, setEndDate ] = useState(new Date() - 365);
 
     const getData = async () => {
-        let dataSeries = [];
-        let axisOptions = [];
-        for (let selection in pairSelection) {
-            dataSeries.push({
-                name: selection,
-                type: 'line',
-                data: await getHistoricalPriceDataFromBinance( selection, tickerIntervalSelection, tickQuantitySelection ),
-            })
-        };
+        const chartConfig = await setChartDataDataAndConfigurations( pairSelection, tickIntervalSelection, tickQuantitySelection );
         setDataSeries({
             width: '100%',
             height: 400,
@@ -268,26 +299,14 @@ const ApexHistoricalPriceLineChart = () => {
                 xaxis: {
                     type: 'datetime',
                 },
-                yaxis: [{
-                    title: {
-                        text: pairOptions[0].value + ' Price',
-                    },
-                    min: parseInt(dataLog.min),
-                    max: parseInt(dataLog.max)
-                }, {
-                    opposite: true,
-                    title: {
-                        text: pairOptions[1].value  + ' Price',
-                    },
-                    min: parseInt(dataLogTwo.min),
-                    max: parseInt(dataLogTwo.max)
-                }]
+                yaxis: chartConfig.yConfigArray,
             },
-            series: dataSeries
+            series: chartConfig.dataSeriesArray,
         });
     };
 
     useEffect(() => {
+        useInterval()
         getData()
     });
 

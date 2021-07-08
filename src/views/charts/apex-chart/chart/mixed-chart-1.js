@@ -29,7 +29,6 @@ const chartData = {
             title: {
                 text: 'Website Blog',
             },
-
         }, {
             opposite: true,
             title: {

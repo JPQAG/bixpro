@@ -63,7 +63,6 @@ const getHistoricalPriceDataFromBinance = async ( symbol, interval, limit ) => {
         array.push(parseFloat(results[row].open));
         lineData.push(array);
     };
-
     return lineData;
 };
 
@@ -193,7 +192,7 @@ const MarketsPriceLineAreaChart = () => {
                     // ]}
                     data={ data }
                     options={{
-                        hAxis: { title: 'Year', titleTextStyle: { color: '#333' } },
+                        hAxis: { title: 'Date/Time', titleTextStyle: { color: '#333' } },
                         vAxis: { minValue: 0 },
                         colors: ['#1de9b6', '#1dc4e9']
                     }}
